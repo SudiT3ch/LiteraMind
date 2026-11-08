@@ -1,0 +1,21 @@
+# Render blueprint (NOT deploy-tested in the development sandbox). Backend as a web service; UI as a second service.
+services:
+  - type: web
+    name: literamind-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - {key: LLM_PROVIDER, value: heuristic}
+      - {key: EMBEDDING_BACKEND, value: auto}
+      - {key: ANTHROPIC_API_KEY, sync: false}
+      - {key: S2_API_KEY, sync: false}
+      - {key: CONTACT_EMAIL, sync: false}
+    disk: {name: data, mountPath: /opt/render/project/src/data, sizeGB: 2}
+  - type: web
+    name: literamind-ui
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0
+    envVars:
+      - {key: BACKEND_URL, fromService: {type: web, name: literamind-api, property: host}}

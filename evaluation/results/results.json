@@ -1,0 +1,233 @@
+{
+  "meta": {
+    "corpus": "SYNTHETIC fixture corpus (not real publications)",
+    "embedder": "hashing-512",
+    "llm": "heuristic",
+    "date": "2026-11-07 16:13:14",
+    "python": "3.12.3"
+  },
+  "retrieval": {
+    "corpus": "synthetic fixture (6 papers) \u2014 P@5/R@10 are near-trivial on a corpus this small; use for regression only",
+    "semantic": {
+      "P@5": 0.3333,
+      "R@10": 1.0,
+      "MRR": 1.0,
+      "n_queries": 6,
+      "P@3": 0.5
+    },
+    "keyword (BM25)": {
+      "P@5": 0.4611,
+      "R@10": 1.0,
+      "MRR": 1.0,
+      "n_queries": 6
+    },
+    "hybrid (RRF)": {
+      "P@5": 0.3667,
+      "R@10": 1.0,
+      "MRR": 1.0,
+      "n_queries": 6
+    },
+    "hybrid + rerank": {
+      "P@5": 0.3667,
+      "R@10": 1.0,
+      "MRR": 1.0,
+      "n_queries": 6,
+      "P@3": 0.5
+    },
+    "_runtime_s": 0.16
+  },
+  "summarization": {
+    "reference": "paper abstracts (synthetic)",
+    "rouge_impl": "rouge-score",
+    "multi_agent_structured_summary": {
+      "ROUGE-L F1": 0.4863,
+      "factual_consistency": 1.0
+    },
+    "baseline_extractive": {
+      "ROUGE-L F1": 0.4931,
+      "factual_consistency": 1.0
+    },
+    "human_evaluation": "PENDING \u2014 see evaluation/results/human_eval_template.csv",
+    "n_papers": 6,
+    "_runtime_s": 2.59
+  },
+  "baseline": {
+    "configs": "BASELINE = single-pass extractive RAG (no LLM available in this run); PROPOSED = six-agent pipeline (rule-based path)",
+    "caveat": "answer correctness/faithfulness vs reference answers and LLM-mode comparison: PENDING (needs QASPER download and an LLM key)",
+    "per_question": [
+      {
+        "question": "How can explainable AI improve reliability of medical diagnosis?",
+        "n_relevant_papers": 4,
+        "baseline": {
+          "mode": "extractive",
+          "time_s": 0.005,
+          "tokens": "n/a (no LLM)",
+          "n_claims": 6,
+          "citation_support_rate": 1.0,
+          "partial_support_rate": 0.0,
+          "unsupported_claim_rate": 0.0,
+          "citation_completeness": 1.0,
+          "source_traceability": 1.0,
+          "evidence_coverage": 0.5,
+          "analysis_completeness": 0.0417,
+          "comparison_f1": 0.0,
+          "gap_theme_f1": 0.0,
+          "note": "baseline produces no gap analysis by design"
+        },
+        "multi_agent": {
+          "time_s": 0.411,
+          "tokens": "n/a (no LLM)",
+          "n_claims": 44,
+          "citation_support_rate": 0.8636,
+          "partial_support_rate": 0.0227,
+          "unsupported_claim_rate": 0.1136,
+          "citation_completeness": 1.0,
+          "source_traceability": 1.0,
+          "evidence_coverage": 1.0,
+          "analysis_completeness": 0.9583,
+          "comparison_f1": 1.0,
+          "gap_theme_f1": 0.6667,
+          "n_gaps": 10
+        }
+      },
+      {
+        "question": "federated learning privacy hospitals",
+        "n_relevant_papers": 2,
+        "baseline": {
+          "mode": "extractive",
+          "time_s": 0.006,
+          "tokens": "n/a (no LLM)",
+          "n_claims": 6,
+          "citation_support_rate": 1.0,
+          "partial_support_rate": 0.0,
+          "unsupported_claim_rate": 0.0,
+          "citation_completeness": 1.0,
+          "source_traceability": 1.0,
+          "evidence_coverage": 1.0,
+          "analysis_completeness": 0.4167,
+          "comparison_f1": 0.0,
+          "gap_theme_f1": 0.0,
+          "note": "baseline produces no gap analysis by design"
+        },
+        "multi_agent": {
+          "time_s": 0.46,
+          "tokens": "n/a (no LLM)",
+          "n_claims": 44,
+          "citation_support_rate": 0.8636,
+          "partial_support_rate": 0.0227,
+          "unsupported_claim_rate": 0.1136,
+          "citation_completeness": 1.0,
+          "source_traceability": 1.0,
+          "evidence_coverage": 1.0,
+          "analysis_completeness": 0.8333,
+          "comparison_f1": 1.0,
+          "gap_theme_f1": 0.6667,
+          "n_gaps": 10
+        }
+      }
+    ],
+    "mean": {
+      "baseline": {
+        "time_s": 0.0055,
+        "citation_support_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "citation_completeness": 1.0,
+        "source_traceability": 1.0,
+        "evidence_coverage": 0.75,
+        "analysis_completeness": 0.2292,
+        "comparison_f1": 0.0,
+        "gap_theme_f1": 0.0
+      },
+      "multi_agent": {
+        "time_s": 0.4355,
+        "citation_support_rate": 0.8636,
+        "unsupported_claim_rate": 0.1136,
+        "citation_completeness": 1.0,
+        "source_traceability": 1.0,
+        "evidence_coverage": 1.0,
+        "analysis_completeness": 0.8958,
+        "comparison_f1": 1.0,
+        "gap_theme_f1": 0.6667
+      }
+    },
+    "_runtime_s": 1.07
+  },
+  "ablation": {
+    "question": "How can explainable AI improve reliability of medical diagnosis?",
+    "results": {
+      "full system": {
+        "time_s": 0.468,
+        "comparison_f1": 1.0,
+        "gap_theme_f1": 0.6667,
+        "n_gaps": 10,
+        "claims_checked": 44,
+        "citation_support_rate": 0.8636,
+        "unsupported_claim_rate": 0.1136,
+        "report_statements_marked_unverified": 18,
+        "report_has_comparison_table": true,
+        "report_has_gap_section_content": true
+      },
+      "\u2212 Comparison Agent": {
+        "time_s": 0.377,
+        "comparison_f1": 0.0,
+        "gap_theme_f1": 0.6667,
+        "n_gaps": 10,
+        "claims_checked": 38,
+        "citation_support_rate": 0.8421,
+        "unsupported_claim_rate": 0.1316,
+        "report_statements_marked_unverified": 18,
+        "report_has_comparison_table": false,
+        "report_has_gap_section_content": true
+      },
+      "\u2212 Research Gap Agent": {
+        "time_s": 0.316,
+        "comparison_f1": 1.0,
+        "gap_theme_f1": 0.0,
+        "n_gaps": 0,
+        "claims_checked": 24,
+        "citation_support_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "report_statements_marked_unverified": 18,
+        "report_has_comparison_table": true,
+        "report_has_gap_section_content": false
+      },
+      "\u2212 Evidence Verification Agent": {
+        "time_s": 0.105,
+        "comparison_f1": 1.0,
+        "gap_theme_f1": 0.6667,
+        "n_gaps": 10,
+        "claims_checked": 0,
+        "citation_support_rate": null,
+        "unsupported_claim_rate": null,
+        "report_statements_marked_unverified": 36,
+        "report_has_comparison_table": true,
+        "report_has_gap_section_content": true
+      }
+    },
+    "reading_guide": "Claims-checked / unsupported rates are None when verification is disabled: nothing is verified, and the report marks statements as '[not verified]'.",
+    "_runtime_s": 1.34
+  },
+  "verifier": {
+    "n_true_claims": 5,
+    "n_false_claims_injected": 5,
+    "true_claims_accepted (recall)": 1.0,
+    "false_claims_flagged (detection rate)": 1.0,
+    "false_claims_accepted_as_supported": 0,
+    "note": "false claims are real claims with the number changed; synthetic fixture, so a sanity check of the numeric-consistency rule only",
+    "_runtime_s": 0.63
+  },
+  "external_benchmarks": {
+    "SciTLDR": {
+      "status": "PENDING",
+      "reason": "`datasets` package not installed (pip install datasets)"
+    },
+    "QASPER": {
+      "status": "PENDING",
+      "reason": "`datasets` package not installed (pip install datasets)"
+    }
+  },
+  "human_evaluation": {
+    "status": "PENDING",
+    "template": "/home/claude/LiteraMind/evaluation/results/human_eval_template.csv"
+  }
+}
